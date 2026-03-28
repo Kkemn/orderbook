@@ -27,7 +27,7 @@ print()
 
 # Market sell
 print(">>> Sending MARKET SELL qty=5")
-mo = Order(side=Side.ASK, price=Decimal("0"), quantity=Decimal("5"), order_type=OrderType.MARKET)
+mo = Order(side=Side.ASK, price=None, quantity=Decimal("5"), order_type=OrderType.MARKET)
 trades = book.add_order(mo)
 for t in trades:
     print(" ", t)

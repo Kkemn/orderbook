@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, timezone
 import uuid
 
 
@@ -11,7 +11,7 @@ class Trade:
     price: Decimal
     quantity: Decimal
     trade_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
     def __repr__(self) -> str:
         return (

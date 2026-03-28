@@ -123,7 +123,7 @@ def test_multiple_levels_filled():
 def test_market_buy():
     book = make_book()
     book.add_order(ask(100, 5))
-    mo = Order(side=Side.BID, price=Decimal("0"), quantity=Decimal("5"), order_type=OrderType.MARKET)
+    mo = Order(side=Side.BID, price=None, quantity=Decimal("5"), order_type=OrderType.MARKET)
     trades = book.add_order(mo)
     assert len(trades) == 1
     assert mo.status == OrderStatus.FILLED
@@ -132,7 +132,7 @@ def test_market_buy():
 def test_market_order_partial_cancel():
     book = make_book()
     book.add_order(ask(100, 3))
-    mo = Order(side=Side.BID, price=Decimal("0"), quantity=Decimal("10"), order_type=OrderType.MARKET)
+    mo = Order(side=Side.BID, price=None, quantity=Decimal("10"), order_type=OrderType.MARKET)
     trades = book.add_order(mo)
     assert mo.status == OrderStatus.CANCELLED
     assert mo.filled_quantity == Decimal("3")

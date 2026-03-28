@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from decimal import Decimal
-from datetime import datetime
+from datetime import datetime, timezone
+from typing import Optional
 import uuid
 
 
@@ -25,11 +26,11 @@ class OrderStatus(Enum):
 @dataclass
 class Order:
     side: Side
-    price: Decimal  # None for market orders
+    price: Optional[Decimal]  # None for market orders
     quantity: Decimal
     order_type: OrderType = OrderType.LIMIT
     order_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    timestamp: datetime = field(default_factory=datetime.utcnow)
+    timestamp: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
     status: OrderStatus = field(default=OrderStatus.OPEN)
     filled_quantity: Decimal = field(default=Decimal("0"))
 
