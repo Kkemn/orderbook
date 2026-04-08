@@ -1,6 +1,6 @@
 from decimal import Decimal
 from sortedcontainers import SortedDict
-from typing import List, Optional, Dict, Tuple
+from typing import List, Dict, Tuple
 from .order import Order, Side, OrderType, OrderStatus
 from .level import PriceLevel
 from .trade import Trade
@@ -48,26 +48,26 @@ class OrderBook:
     # ------------------------------------------------------------------
 
     @property
-    def best_bid(self) -> Optional[Decimal]:
+    def best_bid(self) -> Decimal | None:
         if not self._bids:
             return None
         neg_price = self._bids.keys()[0]
         return -neg_price
 
     @property
-    def best_ask(self) -> Optional[Decimal]:
+    def best_ask(self) -> Decimal | None:
         if not self._asks:
             return None
         return self._asks.keys()[0]
 
     @property
-    def spread(self) -> Optional[Decimal]:
+    def spread(self) -> Decimal | None:
         if self.best_bid is None or self.best_ask is None:
             return None
         return self.best_ask - self.best_bid
 
     @property
-    def mid_price(self) -> Optional[Decimal]:
+    def mid_price(self) -> Decimal | None:
         if self.best_bid is None or self.best_ask is None:
             return None
         return (self.best_bid + self.best_ask) / 2
